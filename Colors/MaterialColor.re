@@ -74,6 +74,8 @@ type materialColor = {
   level,
 };
 
+let materialColor = (~color, ~level) => {color, level};
+
 let toReveryColor = (c: materialColor) =>
   switch (c) {
   | {color: Red, level: P50} => Color.hex("#ffebee")

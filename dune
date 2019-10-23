@@ -1,4 +1,4 @@
 (library
   (name ReveryMaterial)
   (public_name ReveryMaterial)
-  (libraries Revery console.lib))
+  (libraries Revery ReveryMaterial_Colors ReveryMaterial_Styles console.lib))

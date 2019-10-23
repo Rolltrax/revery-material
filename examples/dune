@@ -1,0 +1,6 @@
+(executable
+  (name App)
+  (public_name App)
+  (libraries
+    Revery
+    ReveryMaterial))
