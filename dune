@@ -1,0 +1,4 @@
+(library
+  (name ReveryMaterial)
+  (public_name ReveryMaterial)
+  (libraries Revery console.lib))
