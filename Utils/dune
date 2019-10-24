@@ -1,0 +1,4 @@
+(library
+  (name ReveryMaterial_Utils)
+  (public_name ReveryMaterial.Utils)
+  (libraries Revery))
