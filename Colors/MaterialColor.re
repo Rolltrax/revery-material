@@ -67,14 +67,16 @@ type color =
   | DeepOrange
   | Brown
   | Grey
-  | BlueGrey;
+  | BlueGrey
+  | Black
+  | White;
 
 type materialColor = {
   color,
   level,
 };
 
-let materialColor = (~color, ~level) => {color, level};
+let materialColor = (~color, ~level, ()) => {color, level};
 
 let toReveryColor = (c: materialColor) =>
   switch (c) {
@@ -332,6 +334,9 @@ let toReveryColor = (c: materialColor) =>
   | {color: BlueGrey, level: P700} => Color.hex("#455a64")
   | {color: BlueGrey, level: P800} => Color.hex("#37474f")
   | {color: BlueGrey, level: P900} => Color.hex("#263238")
+  | {color: White, level: _} => Colors.white
+  | {color: Black, level: _} => Colors.black
+  | _ => Colors.white
   };
 
 let add = (materialColor, addend) => {
@@ -339,13 +344,13 @@ let add = (materialColor, addend) => {
   let i = Hashtbl.find(levelIntMap, level);
   let i2 =
     i + addend > Hashtbl.length(levelIntMap) - 1 ?
-      Hashtbl.length(levelIntMap) - 1 : i;
-  Hashtbl.find(intLevelMap, i2);
+      Hashtbl.length(levelIntMap) - 1 : i + addend;
+  {color, level: Hashtbl.find(intLevelMap, i2)};
 };
 
 let subtract = (materialColor, subtractend) => {
   let {color, level} = materialColor;
   let i = Hashtbl.find(levelIntMap, level);
-  let i2 = i - subtractend < 0 ? 0 : i;
-  Hashtbl.find(intLevelMap, i2);
+  let i2 = i - subtractend < 0 ? 0 : i - subtractend;
+  {color, level: Hashtbl.find(intLevelMap, i2)};
 };

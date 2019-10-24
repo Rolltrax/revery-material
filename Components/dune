@@ -1,0 +1,4 @@
+(library
+  (name ReveryMaterial_Components)
+  (public_name ReveryMaterial.Components)
+  (libraries Revery ReveryMaterial_Colors))

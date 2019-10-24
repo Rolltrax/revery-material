@@ -2,4 +2,4 @@
 (install
     (section bin)
     (package ReveryMaterial)
-    (files Roboto-Black.ttf Roboto-Regular.ttf))
+    (files Roboto-Black.ttf Roboto-Regular.ttf Roboto-Medium.ttf))

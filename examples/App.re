@@ -33,7 +33,7 @@ module ExampleButton = {
       let bgColor =
         isActive ?
           MaterialColor.toReveryColor(
-            materialColor(~color=Grey, ~level=P200),
+            materialColor(~color=Grey, ~level=P200, ()),
           ) :
           Colors.white;
       let textStyle =
@@ -46,7 +46,7 @@ module ExampleButton = {
       (
         hooks,
         <Opacity>
-          <Clickable style=Style.[backgroundColor(bgColor)]>
+          <Clickable onClick style=Style.[backgroundColor(bgColor)]>
             <Text style=textStyle text=name />
           </Clickable>
         </Opacity>,
@@ -80,7 +80,7 @@ module ExampleHost = {
       };
 
       let borderColor =
-        materialColor(~color=Grey, ~level=P400) |> toReveryColor;
+        materialColor(~color=Grey, ~level=P400, ()) |> toReveryColor;
 
       let renderButtons = buttons => List.map(x => renderButton(x), buttons);
       let buttons = renderButtons([Button, Test]);

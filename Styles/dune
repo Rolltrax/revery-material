@@ -1,4 +1,4 @@
 (library
   (name ReveryMaterial_Styles)
   (public_name ReveryMaterial.Styles)
-  (libraries Revery))
+  (libraries Revery ReveryMaterial_Colors))
