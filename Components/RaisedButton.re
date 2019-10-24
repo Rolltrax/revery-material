@@ -4,6 +4,7 @@ open Revery.UI;
 open Revery.UI.Components;
 
 open ReveryMaterial_Colors;
+open ReveryMaterial_Utils;
 
 let component = React.component("RaisedButton");
 
@@ -36,7 +37,7 @@ let createElement =
         Animated.options(
           ~toValue=1000.0,
           ~duration=Seconds(0.4),
-          ~easing=Easing.easeInOut,
+          ~easing=MaterialEasing.standardEasing,
           (),
         ),
         hooks,
