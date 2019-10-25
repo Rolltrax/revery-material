@@ -43,6 +43,18 @@ let createElement =
         hooks,
       );
 
+    let (circleOpacity, pauseCircleOpacity, restartCircleOpacity, hooks) =
+      Hooks.animation(
+        Animated.floatValue(0.),
+        Animated.options(
+          ~toValue=1.,
+          ~duration=Seconds(0.6),
+          ~delay=Seconds(0.5),
+          (),
+        ),
+        hooks,
+      );
+
     let resetShadow = () => {
       restartShadow();
       pauseShadow() |> ignore;
@@ -53,18 +65,38 @@ let createElement =
       pauseCircleRadius() |> ignore;
     };
 
+    let resetCircleOpacity = () => {
+      restartCircleOpacity();
+      pauseCircleOpacity() |> ignore;
+    };
+
     let hooks =
       Hooks.effect(
         OnMount,
         () => {
           resetShadow();
           resetCircleRadius();
+          resetCircleOpacity();
           None;
         },
         hooks,
       );
 
     let bgColor = (isHovered ? subtract(c, 1) : c) |> toReveryColor;
+
+    let calculateCircleColor = () => {
+      let (r1, g1, b1, _) = subtract(c, 3) |> toReveryColor |> Color.toRgba;
+      let (r2, g2, b2, _) = bgColor |> Color.toRgba;
+      let (diffR, diffG, diffB) = (r2 -. r1, g2 -. g1, b2 -. b1);
+      let c =
+        Color.rgb(
+          r1 +. diffR *. circleOpacity,
+          g1 +. diffG *. circleOpacity,
+          b1 +. diffB *. circleOpacity,
+        );
+      c;
+    };
+
     let borderWidth = 4;
     (
       hooks,
@@ -93,7 +125,12 @@ let createElement =
                 resetCircleRadius();
               }
             }
-            onMouseDown={_ => restartCircleRadius()}
+            onMouseDown={
+              _ => {
+                restartCircleRadius();
+                restartCircleOpacity();
+              }
+            }
             style=Style.[
               backgroundColor(bgColor),
               border(~color=bgColor, ~width=borderWidth),
@@ -114,7 +151,7 @@ let createElement =
               <View
                 style=Style.[
                   border(
-                    ~color=subtract(c, 2) |> toReveryColor,
+                    ~color=calculateCircleColor(),
                     ~width=int_of_float(circleRadius),
                   ),
                   borderRadius(circleRadius),
