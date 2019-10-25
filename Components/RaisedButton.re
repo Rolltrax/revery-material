@@ -24,7 +24,7 @@ let createElement =
         Animated.floatValue(2.),
         Animated.options(
           ~toValue=8.0,
-          ~duration=Seconds(0.15),
+          ~duration=Seconds(0.1),
           ~easing=MaterialEasing.standardEasing,
           (),
         ),
