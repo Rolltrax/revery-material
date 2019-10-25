@@ -23,4 +23,18 @@ let render = () =>
         />
       </Center>
     </RaisedButton>
+    <Text style={TextStyle.heading3()} text="Flat Button" />
+    <FlatButton>
+      <Center>
+        <Text
+          style={
+            TextStyle.medium(
+              ~color=materialColor(~color=Blue, ~level=P500, ()),
+              (),
+            )
+          }
+          text="CLICK ME"
+        />
+      </Center>
+    </FlatButton>
   </View>;
