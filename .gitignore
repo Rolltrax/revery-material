@@ -69,3 +69,7 @@ _release/
 # reason
 *.install
 .merlin
+
+# generated txt files
+switch_icons.txt
+type_icons.txt
