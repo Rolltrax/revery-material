@@ -19,7 +19,7 @@ let render = () =>
               (),
             )
           }
-          text="ABC"
+          text="CLICK ME"
         />
       </Center>
     </RaisedButton>
