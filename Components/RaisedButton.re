@@ -24,8 +24,8 @@ let createElement =
         Animated.floatValue(2.),
         Animated.options(
           ~toValue=8.0,
-          ~duration=Seconds(0.2),
-          ~easing=Easing.easeInOut,
+          ~duration=Seconds(0.15),
+          ~easing=MaterialEasing.standardEasing,
           (),
         ),
         hooks,
@@ -106,7 +106,7 @@ let createElement =
             Style.BoxShadow.make(
               ~xOffset=(-1.) *. shadow,
               ~yOffset=shadow,
-              ~blurRadius=shadow *. 2.,
+              ~blurRadius=shadow *. 2.5,
               ~color=Colors.lightGrey,
               (),
             )
