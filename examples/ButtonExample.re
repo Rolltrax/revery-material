@@ -9,7 +9,7 @@ open ReveryMaterial.MaterialColor;
 let render = () =>
   <View style=Style.[margin(12)]>
     <Text style={TextStyle.heading1()} text="Button Examples" />
-    <Text style={TextStyle.heading4()} text="Raised Button" />
+    <Text style={TextStyle.heading3()} text="Raised Button" />
     <RaisedButton>
       <Center>
         <Text
