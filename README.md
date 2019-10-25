@@ -14,7 +14,7 @@ Key: ✅ Done; 🆗 Functional, but not complete; 🔨WIP; ❌ No progress
 - ❌ Implement components
   - 🔨 Buttons
     - 🆗 `RaisedButton`
-    - 🔨 `FlatButton`
+    - 🆗 `FlatButton`
   - ❌ everything else
 
 ## Examples
