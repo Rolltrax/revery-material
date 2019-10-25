@@ -37,4 +37,27 @@ let render = () =>
         />
       </Center>
     </FlatButton>
+    <Text style={TextStyle.heading3()} text="Icon Flat Button" />
+    <FlatButton>
+      <View
+        style=Style.[
+          justifyContent(`Center),
+          alignItems(`Center),
+          flexDirection(`Row),
+        ]>
+        <MaterialIcon
+          icon=Bookmark
+          color={materialColor(~color=Blue, ~level=P500, ())}
+        />
+        <Text
+          style={
+            TextStyle.medium(
+              ~color=materialColor(~color=Blue, ~level=P500, ()),
+              (),
+            )
+          }
+          text="BOOKMARK THIS PAGE"
+        />
+      </View>
+    </FlatButton>
   </View>;
