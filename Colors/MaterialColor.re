@@ -354,3 +354,16 @@ let subtract = (materialColor, subtractend) => {
   let i2 = i - subtractend < 0 ? 0 : i - subtractend;
   {color, level: Hashtbl.find(intLevelMap, i2)};
 };
+
+let lerp = (startColor, endColor, percentage) => {
+  let (r1, g1, b1, _) = endColor |> Color.toRgba;
+  let (r2, g2, b2, _) = startColor |> Color.toRgba;
+  let (diffR, diffG, diffB) = (r2 -. r1, g2 -. g1, b2 -. b1);
+  let c =
+    Color.rgb(
+      r1 +. diffR *. percentage,
+      g1 +. diffG *. percentage,
+      b1 +. diffB *. percentage,
+    );
+  c;
+};

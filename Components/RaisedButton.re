@@ -74,9 +74,9 @@ let createElement =
       Hooks.effect(
         OnMount,
         () => {
-          resetShadow();
-          resetCircleRadius();
-          resetCircleOpacity();
+          pauseShadow();
+          pauseCircleRadius();
+          pauseCircleOpacity();
           None;
         },
         hooks,
