@@ -73,6 +73,7 @@ let createElement =
         onMouseDown={
           _ => {
             setValue(!value);
+            onChange(!value);
             if (value) {
               resetPercentDone();
             } else {
