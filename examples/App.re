@@ -14,6 +14,8 @@ type example = {
 type examples =
   | Button
   | Controls
+  | Icons
+  | Input
   | Test;
 
 let getExample = (x: examples) =>
@@ -27,6 +29,16 @@ let getExample = (x: examples) =>
       name: "ControlsExample",
       render: _ => ControlsExample.render(),
       source: "ControlsExample.re",
+    }
+  | Icons => {
+      name: "IconsExample",
+      render: _ => IconsExample.render(),
+      source: "IconsExample.re",
+    }
+  | Input => {
+      name: "InputExample",
+      render: _ => InputExample.render(),
+      source: "InputExample.re",
     }
   | Test => {name: "[nothing]", render: _ => <View />, source: "[nothing]"}
   };
@@ -89,7 +101,7 @@ module ExampleHost = {
         materialColor(~color=Grey, ~level=P400, ()) |> toReveryColor;
 
       let renderButtons = buttons => List.map(x => renderButton(x), buttons);
-      let buttons = renderButtons([Button, Controls, Test]);
+      let buttons = renderButtons([Button, Controls, Input, Icons, Test]);
 
       (
         hooks,

@@ -18,7 +18,9 @@ let createElement =
     ) =>
   component(hooks => {
     let (value, setValue, hooks) = Hooks.state(initialValue, hooks);
-    let (percentDone, pausePrecentDone, restartPercentDone, hooks) =
+    let (percentDone, transitionPercentDoneTo, hooks) =
+      Hooks.transition(0.0, ~duration=Seconds(0.1), hooks);
+    let (percentDone1, pausePrecentDone1, restartPercentDone1, hooks) =
       Hooks.animation(
         Animated.floatValue(0.0),
         Animated.options(
@@ -30,78 +32,65 @@ let createElement =
         hooks,
       );
 
-    let resetPercentDone = () => {
-      restartPercentDone();
-      pausePrecentDone() |> ignore;
-    };
-
-    let hooks =
-      Hooks.effect(
-        OnMount,
-        () => {
-          pausePrecentDone();
-          None;
-        },
-        hooks,
-      );
-
     let handleColor =
       lerp(
         color |> toReveryColor,
         materialColor(~color=Grey, ~level=P100, ()) |> toReveryColor,
-        percentDone,
+        percentDone /. 100.,
       );
 
     let slideColor =
       lerp(
         subtract(color, 2) |> toReveryColor,
         materialColor(~color=Grey, ~level=P500, ()) |> toReveryColor,
-        percentDone,
+        percentDone /. 100.,
       );
 
     (
       hooks,
       <View
-        style=Style.[
-          width(36),
-          height(14),
-          backgroundColor(slideColor),
-          borderLeft(~width=7, ~color=slideColor),
-          borderRight(~width=7, ~color=slideColor),
-          borderRadius(7.0),
-        ]
         onMouseDown={
           _ => {
+            if (value) {
+              transitionPercentDoneTo(0.0);
+            } else {
+              transitionPercentDoneTo(100.0);
+            };
             setValue(!value);
             onChange(!value);
-            if (value) {
-              resetPercentDone();
-            } else {
-              restartPercentDone();
-            };
           }
         }>
-        <BoxShadow
-          boxShadow={
-            Style.BoxShadow.make(
-              ~xOffset=1.0,
-              ~blurRadius=100.0,
-              ~color=Colors.black,
-              (),
-            )
-          }>
-          <View
-            style=Style.[
-              width(0),
-              height(0),
-              position(`Absolute),
-              left(int_of_float(percentDone *. 20. -. 8.)),
-              top(-3),
-              border(~width=10, ~color=handleColor),
-              borderRadius(10.0),
-            ]
-          />
-        </BoxShadow>
+        <View
+          style=Style.[
+            width(36),
+            height(14),
+            backgroundColor(slideColor),
+            borderLeft(~width=7, ~color=slideColor),
+            borderRight(~width=7, ~color=slideColor),
+            borderRadius(7.0),
+          ]>
+          <BoxShadow
+            boxShadow={
+              Style.BoxShadow.make(
+                ~xOffset=1.0,
+                ~blurRadius=100.0,
+                ~color=Colors.black,
+                (),
+              )
+            }>
+            <View
+              style=Style.[
+                width(0),
+                height(0),
+                position(`Absolute),
+                left(int_of_float(percentDone /. 100. *. 20. -. 8.)),
+                top(-3),
+                border(~width=10, ~color=handleColor),
+                borderRadius(10.0),
+              ]
+            />
+          </BoxShadow>
+        </View>
       </View>,
     );
   });

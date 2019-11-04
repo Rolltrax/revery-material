@@ -19,29 +19,33 @@ let createElement =
     ) =>
   component(hooks => {
     let (isHovered, setIsHovered, hooks) = Hooks.state(false, hooks);
-    let (shadow, pauseShadow, restartShadow, hooks) =
-      Hooks.animation(
-        Animated.floatValue(2.),
-        Animated.options(
-          ~toValue=8.0,
-          ~duration=Seconds(0.1),
-          ~easing=MaterialEasing.standardEasing,
-          (),
-        ),
-        hooks,
-      );
+    let (shadow, transitionShadowTo, hooks) =
+      Hooks.transition(~duration=Seconds(0.1), 0.0, hooks);
+    /* let (shadow, pauseShadow, restartShadow, hooks) =
+       Hooks.animation(
+         Animated.floatValue(2.),
+         Animated.options(
+           ~toValue=8.0,
+           ~duration=Seconds(0.1),
+           ~easing=MaterialEasing.standardEasing,
+           (),
+         ),
+         hooks,
+       ); */
 
-    let (circleRadius, pauseCircleRadius, restartCircleRadius, hooks) =
-      Hooks.animation(
-        Animated.floatValue(0.),
-        Animated.options(
-          ~toValue=1000.0,
-          ~duration=Seconds(0.4),
-          ~easing=MaterialEasing.standardEasing,
-          (),
-        ),
-        hooks,
-      );
+    let (circleRadius, transitionCircleRadiusTo, hooks) =
+      Hooks.transition(0.0, ~duration=Seconds(0.4), hooks);
+    /* let (circleRadius, pauseCircleRadius, restartCircleRadius, hooks) =
+       Hooks.animation(
+         Animated.floatValue(0.),
+         Animated.options(
+           ~toValue=1000.0,
+           ~duration=Seconds(0.4),
+           ~easing=MaterialEasing.standardEasing,
+           (),
+         ),
+         hooks,
+       ); */
 
     let (circleOpacity, pauseCircleOpacity, restartCircleOpacity, hooks) =
       Hooks.animation(
@@ -55,27 +59,10 @@ let createElement =
         hooks,
       );
 
-    let resetShadow = () => {
-      restartShadow();
-      pauseShadow() |> ignore;
-    };
-
-    let resetCircleRadius = () => {
-      restartCircleRadius();
-      pauseCircleRadius() |> ignore;
-    };
-
-    let resetCircleOpacity = () => {
-      restartCircleOpacity();
-      pauseCircleOpacity() |> ignore;
-    };
-
     let hooks =
       Hooks.effect(
         OnMount,
         () => {
-          pauseShadow();
-          pauseCircleRadius();
           pauseCircleOpacity();
           None;
         },
@@ -115,19 +102,19 @@ let createElement =
             onMouseEnter={
               _ => {
                 setIsHovered(true);
-                restartShadow();
+                transitionShadowTo(8.0);
               }
             }
             onMouseLeave={
               _ => {
                 setIsHovered(false);
-                resetShadow();
-                resetCircleRadius();
+                transitionShadowTo(0.0);
+                transitionCircleRadiusTo(0.0);
               }
             }
             onMouseDown={
               _ => {
-                restartCircleRadius();
+                transitionCircleRadiusTo(1000.0);
                 restartCircleOpacity();
               }
             }
