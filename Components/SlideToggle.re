@@ -69,27 +69,32 @@ let createElement =
             borderRight(~width=7, ~color=slideColor),
             borderRadius(7.0),
           ]>
-          <BoxShadow
-            boxShadow={
-              Style.BoxShadow.make(
-                ~xOffset=1.0,
-                ~blurRadius=100.0,
-                ~color=Colors.black,
-                (),
-              )
-            }>
-            <View
-              style=Style.[
-                width(0),
-                height(0),
-                position(`Absolute),
-                left(int_of_float(percentDone /. 100. *. 20. -. 8.)),
-                top(-3),
-                border(~width=10, ~color=handleColor),
-                borderRadius(10.0),
-              ]
-            />
-          </BoxShadow>
+          <View
+            style=Style.[
+              width(0),
+              height(0),
+              position(`Absolute),
+              left(int_of_float(percentDone /. 100. *. 20. -. 10.)),
+              top(-2),
+              border(
+                ~width=10,
+                ~color=
+                  materialColor(~color=Grey, ~level=P500, ()) |> toReveryColor,
+              ),
+              borderRadius(10.0),
+            ]
+          />
+          <View
+            style=Style.[
+              width(0),
+              height(0),
+              position(`Absolute),
+              left(int_of_float(percentDone /. 100. *. 20. -. 10.)),
+              top(-3),
+              border(~width=10, ~color=handleColor),
+              borderRadius(10.0),
+            ]
+          />
         </View>
       </View>,
     );
